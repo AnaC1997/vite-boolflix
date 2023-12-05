@@ -7,10 +7,10 @@ export default {
         console.log('Informazioni ricevuteCard:', this.info); // Verifica se le prop sono ricevute correttamente
 
     },
-    methods:{
-        getFlag(img){
-         return new URL(`../assets/img/${img}.svg`, import.meta.url).href;
-            
+    methods: {
+        getFlag(img) {
+            return new URL(`../assets/img/${img}.svg`, import.meta.url).href;
+
         }
     }
 
@@ -19,28 +19,38 @@ export default {
 </script>
 
 <template>
-    <div class="card">
-        <h2>Titolo: {{ info.title }}</h2>
-        <h4>Titolo originale: {{ info.original_title }}</h4>
-        <img :src="getFlag(info.original_language)" alt="flag">
-        <p>Numero di voti: {{ info.vote_average }}</p>
-
-    </div>
+        <div class="card">
+            <h2 class="p1">Titolo: {{ info.title }}  {{ info.name}}</h2>
+            <h4 class="p1">Titolo originale: {{ info.original_title }} {{ info.original_name }}</h4>
+            <img class="p1" :src="getFlag(info.original_language)" alt="flag">
+            <p class="p1">Numero di voti: {{ info.vote_average }}</p>
+        </div>
 </template>
 
 
 <style scoped>
 
+
 .card {
-    padding: 1rem;
-    background-color: blue;
+    background-color: black;
     width: 30%;
+    min-height: 400px;
+    padding: 1rem;
     margin: 1rem;
+    
+   
+
 }
 
-img{
-    width: 100%;
-    
+img {
+    height: 30%;
+    width: 30%;
+
+
+}
+
+.p1{
+    padding: 0.5rem;
 }
 </style>
 

@@ -1,10 +1,16 @@
-import { reactive }  from 'vue'
+import { reactive } from 'vue'
 
 export const store = reactive({
-    apiUrl: 'https://api.themoviedb.org/3/search/movie',
+    apiUrlMovie: 'https://api.themoviedb.org/3/search/movie',
     apiKey: '4a5e11caf515f1d416ece68934f3d4ad',
+    ////////Film////////
     films: [],// Array vuoto per recivere i film filtrati 
-   searchFilm: " " // Stringa vuota per ogni volta che un'utente cerche un film 
-    
-    
+    searchSerie: " ", // Stringa vuota per ogni volta che un'utente cerche un film 
+
+    ////////Serie tv////////
+   apiUrlSerie: 'https://api.themoviedb.org/3/search/tv',
+   series: [],
+   searchSerie:" "
+
+
 });
