@@ -37,39 +37,23 @@ export default {
 
       axios.request(options).then(risultato => {
         this.store.films = risultato.data.results;
-        console.log("risultato data", risultato.data.results)
-        this.store.search = ""; //
-        console.log("Risultato ricerca per film:", risultato.data);
-      });
-    }, 
-    getSeries(){
-    let optionsSerie = {
-        method: 'GET',
-        url: this.store.apiUrlSerie,
-        params: {
-          include_adult: 'false',
-          language: 'it-IT ',
-          page: '1',
-          query: this.store.search,
-          api_key: this.store.apiKey,
-        },
-        headers: {
-          accept: 'application/json',
-        }
-      };
-
-      axios.request(optionsSerie).then(risultato => {
         this.store.series = risultato.data.results;
-        console.log("risultato data", risultato.data.results)
-        this.store.search= ""; //
-        console.log("Risultato ricerca per serie:", risultato.data);
+
       });
+    },
+    generaImageUrl(path) {
+      if (path) {
+        return `${this.store.imageBaseURL}${path}`;
+      }
+      else {
+        return `https://picsum.photos/seed/{seed}/342/`
+      }
     }
 
-
   },
-  
+
   mounted() {
+
 
   }
 }
@@ -77,37 +61,43 @@ export default {
 </script>
 
 <template>
-
   <!--Header-->
   <header>
     <h1>BOOLFLIX</h1>
-    <AppSearch @search= "getSeries"/>
+    <AppSearch @search="getMovies" />
 
   </header>
 
   <!--Main-->
   <main>
-    <section class="containerSection" >
+    <!--Section Films-->
+    <section class="containerSection">
       <h1>Films</h1>
       <div class="containerCard">
         <AppCard v-for="film  in store.films" :info="film" />
+        <div v-for="film in store.films">
+          <img :src="generaImageUrl(film.poster_path)" alt="Movie Poster">
+        </div>
       </div>
-    
     </section>
-   
-    <section class="containerSection" >
+
+       <!--Section series-->
+    <section class="containerSection">
       <h1>Series</h1>
       <div class="containerCard">
         <AppCard v-for="serie  in store.series" :info="serie" />
+        <h1>Imgine series</h1>
+        <div v-for="film in store.series">
+          <img :src="generaImageUrl(film.poster_path)" alt="Movie Poster">
+        </div>
       </div>
-      
+
     </section>
   </main>
 </template>
 
 <style scoped>
-
-header{
+header {
   background-color: #010000;
   height: 70px;
   display: flex;
@@ -116,26 +106,23 @@ header{
   color: red;
 }
 
-main{
+main {
   background-color: #434342;
   color: white;
 }
 
-.containerSection{
+.containerSection {
   text-align: center;
   padding: 1rem;
-  
+
 }
+
 .containerCard {
-    width: 80%;
-    min-height: 40vh;
-    display: flex;
-    flex-wrap: wrap;
-    margin: 0 auto;
-    
+  width: 80%;
+  min-height: 40vh;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+
 }
-
-
-
-
 </style>

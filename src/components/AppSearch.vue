@@ -10,10 +10,11 @@ export default {
   },
   methods: {
     search() {
-      if (this.store.search.searchSerie.trim() !== "") {
+      if (this.store.search.trim() !== "") {
         console.log("Cerca: ", this.store.search);
         this.$emit("search");
       }
+      
     },
   },
 };
@@ -25,9 +26,11 @@ export default {
       placeholder="Cerca i tuoi film o serie"
       v-model.trim="store.search" 
       @keyup.enter="$emit('search')"
+     
     />
     <button class="styleCerca"  @click="search">Cerca</button>
   </div>
+
 </template>
 
 <style scoped>
