@@ -20,14 +20,14 @@ export default {
   methods: {
 
     getMovies() {
-      const options = {
+      let options = {
         method: 'GET',
         url: this.store.apiUrl,
         params: {
           include_adult: 'false',
           language: 'it-IT ',
           page: '1',
-          query: encodeURI(this.store.dato),
+          query: this.store.searchFilm,
           api_key: this.store.apiKey,
         },
         headers: {
@@ -37,7 +37,7 @@ export default {
 
       axios.request(options).then(risultato => {
         this.store.films = risultato.data.results;
-        console.log("risultato data", risultato.data)
+        console.log("risultato data", risultato.data.results)
         this.store.searchFilm = ""; //
         console.log("Risultato ricerca per film:", risultato.data);
       });
