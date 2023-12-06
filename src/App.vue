@@ -19,7 +19,7 @@ export default {
   },
   methods: {
 
-    getMovies() {
+    getFilmsAndSeries() {
       let options = {
         method: 'GET',
         url: this.store.apiUrlMovie,
@@ -38,8 +38,6 @@ export default {
       axios.request(options).then(risultato => {
         this.store.films = risultato.data.results;
         this.store.series = risultato.data.results;
-        console.log("Film", this.store.films)
-        console.log("Serie", this.store.series)
 
       });
     },
@@ -59,7 +57,7 @@ export default {
   <!--Header-->
   <header>
     <h1>BOOLFLIX</h1>
-    <AppSearch @search="getMovies" />
+    <AppSearch @search="getFilmsAndSeries" />
 
   </header>
 
@@ -80,7 +78,6 @@ export default {
       <div class="containerCard">
         <AppCard v-for="serie  in store.series" :info="serie" />
       </div>
-
     </section>
   </main>
 </template>
