@@ -68,8 +68,8 @@ export default {
       <h1>Films</h1>
       <div class="containerCard">
         <AppCard v-for="film  in store.films" :info="film" />
-         
       </div>
+      
     </section>
 
        <!--Section series-->
@@ -78,6 +78,8 @@ export default {
       <div class="containerCard">
         <AppCard v-for="serie  in store.series" :info="serie" />
       </div>
+
+      
     </section>
   </main>
 </template>
@@ -95,6 +97,7 @@ header {
 main {
   background-color: #434342;
   color: white;
+ 
 }
 
 .containerSection {
@@ -103,12 +106,12 @@ main {
 
 }
 
-.containerCard {
-  width: 80%;
+.containerCard{
+  width: 90%;
   min-height: 40vh;
   display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
-
+  overflow: auto;
+  align-items: center;
 }
+
 </style>

@@ -43,11 +43,11 @@ export default {
         generaStarts(vote) {
             return Math.ceil(vote / 2)
         },
-        showDetails(){
-            this.isMouseOver= true;
+        showDetails() {
+            this.isMouseOver = true;
         },
-        hideDetails(){
-            this.isMouseOver =false;
+        hideDetails() {
+            this.isMouseOver = false;
         },
     }
 
@@ -55,54 +55,78 @@ export default {
 
 </script>
 
-<template>
-    <div class="card" @mouseenter="showDetails" @mouseleave="hideDetails">
-        <div v-if="!isMouseOver">
-            <img :src="generaImageUrl(info.poster_path)" alt="Movie Poster">
+<template >
+        <div class="card" @mouseenter="showDetails" @mouseleave="hideDetails">
+            <div class="containerCard" v-if="!isMouseOver">
+                <img class="imgCard" :src="generaImageUrl(info.poster_path)" alt="Movie Poster">
+            </div>
+            <div class="containerInfo" v-if="isMouseOver">
+                <h2 class="p1">Titolo: {{ info.title }} {{ info.name }}</h2>
+                <h4 class="p1">Titolo originale: {{ info.original_title }} {{ info.original_name }}</h4>
+                <img v-if="isInFlags(info.original_language)" class="p1 imgFlags" :src="getFlag(info.original_language)" alt="flag">
+                <p v-else>{{ info.original_language }}</p>
+                <!--stelle generate dinamicamente-->
+                <span v-if="generaStarts(info.vote_average) > 0">
+                    <template v-for="n in generaStarts(info.vote_average)">
+                        <i class="fas fa-star"></i>
+                    </template>
+                    {{ generaStarts(info.vote_average) }}
+                </span>
+                <span v-else>
+                    Numero di voti: {{ generaStarts(info.vote_average) }}
+                </span>
+            </div>
         </div>
-        <div v-if="isMouseOver">
-            <h2 class="p1">Titolo: {{ info.title }} {{ info.name }}</h2>
-            <h4 class="p1">Titolo originale: {{ info.original_title }} {{ info.original_name }}</h4>
-            <img v-if="isInFlags(info.original_language)" class="p1" :src="getFlag(info.original_language)" alt="flag">
-            <p v-else>{{ info.original_language }}</p>
-            <!--stelle generate dinamicamente-->
-            <span v-if="generaStarts(info.vote_average) > 0">
-                <template v-for="n in generaStarts(info.vote_average)">
-                    <i class="fas fa-star"></i>
-                </template>
-                {{ generaStarts(info.vote_average) }}
-            </span>
-            <span v-else>
-                Numero di voti: {{ generaStarts(info.vote_average) }}
-            </span>
-        </div>
-    </div>
 </template>
 
 
 
 <style scoped>
-.card {
-    background-color: black;
-    width: 30%;
-    min-height: 400px;
+
+.card{
     padding: 1rem;
-    margin: 1rem;
+    
+    
 }
+
+.containerInfo {
+    background-color: black;
+    width: 342px;
+    height: 342px;
+    border-radius: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+}
+
 
 .fa-star {
     color: white;
 }
 
-img {
+.imgFlags {
     height: 30%;
     width: 30%;
+   
 
+}
+
+.imgCard{
+    width: 342px;
+    height: 342px;
+    border-radius: 10%;
+}
+
+h2, h4{
+    font-size: 0.9rem;
 }
 
 .p1 {
     padding: 0.5rem;
 }
+
 </style>
 
 
