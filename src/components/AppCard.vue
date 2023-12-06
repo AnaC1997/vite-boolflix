@@ -54,46 +54,18 @@ export default {
         <h4 class="p1">Titolo originale: {{ info.original_title }} {{ info.original_name }}</h4>
         <img v-if="isInFlags(info.original_language)" class="p1" :src="getFlag(info.original_language)" alt="flag">
         <p v-else>{{ info.original_language }}</p>
-        <!--Una stella-->
-        <span v-if="generaStarts(info.vote_average) === 1">
-            <i class="fas fa-star"></i> {{ generaStarts(info.vote_average) }}
+        <!--stelle generate dinamicamente-->
+        <span v-if="generaStarts(info.vote_average) > 0">
+            <template v-for="n in generaStarts(info.vote_average)">
+                <i class="fas fa-star"></i>
+            </template>
+            {{ generaStarts(info.vote_average) }}
         </span>
-
-        <!--Due stelle-->
-        <span v-else-if="generaStarts(info.vote_average) === 2">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i> {{ generaStarts(info.vote_average) }}
-        </span>
-
-         <!--Tre stelle-->
-        <span v-else-if="generaStarts(info.vote_average) === 3">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>{{ generaStarts(info.vote_average) }}
-        </span>
-
-         <!--Quatro stelle-->
-        <span v-else-if="generaStarts(info.vote_average) === 4">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i> {{ generaStarts(info.vote_average) }}
-        </span>
-        <!--Cinco stelle-->
-        <span v-else-if="generaStarts(info.vote_average) === 5">
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i>
-            <i class="fas fa-star"></i> {{ generaStarts(info.vote_average) }}
-        </span>
-
-          <!--Nessuns Stella stelle-->
-          <span v-else-if="generaStarts(info.vote_average) === 0">
+        <span v-else>
             Numero di voti: {{ generaStarts(info.vote_average) }}
         </span>
 
-        
+
         <img :src="generaImageUrl(info.poster_path)" alt="Movie Poster">
     </div>
 </template>
