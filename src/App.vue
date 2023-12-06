@@ -38,17 +38,12 @@ export default {
       axios.request(options).then(risultato => {
         this.store.films = risultato.data.results;
         this.store.series = risultato.data.results;
+        console.log("Film", this.store.films)
+        console.log("Serie", this.store.series)
 
       });
     },
-    generaImageUrl(path) {
-      if (path) {
-        return `${this.store.imageBaseURL}${path}`;
-      }
-      else {
-        return `https://picsum.photos/seed/{seed}/342/`
-      }
-    }
+    
 
   },
 
@@ -75,9 +70,7 @@ export default {
       <h1>Films</h1>
       <div class="containerCard">
         <AppCard v-for="film  in store.films" :info="film" />
-        <div v-for="film in store.films">
-          <img :src="generaImageUrl(film.poster_path)" alt="Movie Poster">
-        </div>
+         
       </div>
     </section>
 
@@ -86,10 +79,6 @@ export default {
       <h1>Series</h1>
       <div class="containerCard">
         <AppCard v-for="serie  in store.series" :info="serie" />
-        <h1>Imgine series</h1>
-        <div v-for="film in store.series">
-          <img :src="generaImageUrl(film.poster_path)" alt="Movie Poster">
-        </div>
       </div>
 
     </section>
