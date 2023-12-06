@@ -18,35 +18,52 @@ export default {
     }
   },
   methods: {
-
     getFilmsAndSeries() {
-      let options = {
+      // Richiesta per i film
+      let filmOptions = {
         method: 'GET',
         url: this.store.apiUrlMovie,
         params: {
           include_adult: 'false',
-          language: 'it-IT ',
+          language: 'it-IT',
           page: '1',
           query: this.store.search,
           api_key: this.store.apiKey,
         },
         headers: {
           accept: 'application/json',
-        }
+        },
       };
 
-      axios.request(options).then(risultato => {
-        this.store.films = risultato.data.results;
-        this.store.series = risultato.data.results;
+      // Richiesta per le serie TV
+      let serieOptions = {
+        method: 'GET',
+        url: this.store.apiUrlSerie,
+        params: {
+          include_adult: 'false',
+          language: 'it-IT',
+          page: '1',
+          query: this.store.search,
+          api_key: this.store.apiKey,
+        },
+        headers: {
+          accept: 'application/json',
+        },
+      };
 
-      });
+      // Richieste separatamente
+      axios.all([axios(filmOptions), axios(serieOptions)])
+        .then(axios.spread((filmResponse, serieResponse) => {
+          this.store.films = filmResponse.data.results;
+          this.store.series = serieResponse.data.results;
+        }))
+        .catch(error => {
+          console.error('Errore nella richiesta:', error);
+        });
     },
-    
-
   },
 
   mounted() {
-
 
   }
 }
@@ -69,17 +86,17 @@ export default {
       <div class="containerCard">
         <AppCard v-for="film  in store.films" :info="film" />
       </div>
-      
+
     </section>
 
-       <!--Section series-->
+    <!--Section series-->
     <section class="containerSection">
       <h1>Series</h1>
       <div class="containerCard">
         <AppCard v-for="serie  in store.series" :info="serie" />
       </div>
 
-      
+
     </section>
   </main>
 </template>
@@ -97,21 +114,23 @@ header {
 main {
   background-color: #434342;
   color: white;
- 
+
+
 }
 
 .containerSection {
   text-align: center;
   padding: 1rem;
 
+
 }
 
-.containerCard{
+.containerCard {
   width: 90%;
   min-height: 40vh;
   display: flex;
   overflow: auto;
-  align-items: center;
-}
+  margin-left: 3.5rem;
 
+}
 </style>
