@@ -12,14 +12,21 @@ export default {
     props: ["info"],
     mounted() {
         console.log('Informazioni ricevuteCard:', this.info); // Verifica se le prop sono ricevute correttamente
+        console.log("Imagene", this. getFlag)
 
     },
     methods: {
         getFlag(img) {
-           if (img){
-            return new URL(`../assets/img/${img}.svg`, import.meta.url).href;
+            if (img) {
+                return new URL(`../assets/img/${img}.svg`, import.meta.url).href;
+
+            }
             
-           } 
+
+        },
+        isInFlags(lenguageCode){
+            return this.store.flags.includes(lenguageCode)
+
 
         },
         generaImageUrl(path) {
@@ -41,7 +48,7 @@ export default {
     <div class="card">
         <h2 class="p1">Titolo: {{ info.title }} {{ info.name }}</h2>
         <h4 class="p1">Titolo originale: {{ info.original_title }} {{ info.original_name }}</h4>
-        <img v-if="getFlag(info.original_language)" class="p1" :src="getFlag(info.original_language)" alt="flag">
+        <img v-if="isInFlags(info.original_language)" class="p1" :src="getFlag(info.original_language)" alt="flag">
         <p v-else>{{ info.original_language }}</p>
         <p class="p1">Numero di voti: {{ info.vote_average }}</p>
         <img :src="generaImageUrl(info.poster_path)" alt="Movie Poster">

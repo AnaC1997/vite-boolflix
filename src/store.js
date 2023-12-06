@@ -10,7 +10,8 @@ export const store = reactive({
     ////////Serie tv////////
    apiUrlSerie: 'https://api.themoviedb.org/3/search/tv',
    series: [],
-   imageBaseURL: 'https://image.tmdb.org/t/p/w300/'
+   imageBaseURL: 'https://image.tmdb.org/t/p/w300/',
+   flags: ["cn", "cs", "da", "de", "el", "en", "es", "et", "fi", "fr", "ga", "gb", "hi", "hr", "hu", "it","ja","kr","lt", "lv", "mt", "nl","no", "pl", "pt", "ro", "sl", "sv","th", "tl"]
  
 
 
